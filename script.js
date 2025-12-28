@@ -1,240 +1,302 @@
-const STATE_KEY = 'matemática_avance';
+const STATE_KEY = 'matematica_avance_v1';
 let materias = [];
 
-async function boot(){
-  try{
-    if ('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js'); }
-    const res = await fetch('materias.json', {cache:'no-store'});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data = await res.json();
-    materias = (data.materias||[]).sort((a,b)=>a.id-b.id);
-  }catch(e){
-    console.error('No se pudo cargar materias.json', e);
-    materias = [];
-    const box = document.getElementById('app-alert');
-    if(box){
-      box.textContent = 'No se pudo cargar materias.json. La interfaz sigue funcionando pero sin datos. Verificá que el archivo exista en el repositorio.';
-      box.hidden = false;
+// 1. BOOT: Carga inicial de datos y Service Worker
+async function boot() {
+  try {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('SW registrado'))
+        .catch(err => console.warn('SW error', err));
     }
-  }finally{
-    init();
+    
+    // Forzamos cache: 'no-store' para asegurar que lea cambios recientes
+    const res = await fetch('materias.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    
+    const data = await res.json();
+    // Ordenar por ID para mantener consistencia
+    materias = (data.materias || []).sort((a, b) => a.id - b.id);
+    
+    init(); // Iniciar la app
+    
+  } catch (e) {
+    console.error('Error cargando datos:', e);
+    const container = document.querySelector('main');
+    if(container) {
+      container.innerHTML = `<div style="padding:20px; color:red; text-align:center">
+        <h3>Error cargando materias</h3>
+        <p>Verifica que el archivo <b>materias.json</b> esté en la misma carpeta y tenga el formato correcto.</p>
+        <small>${e.message}</small>
+      </div>`;
+    }
   }
 }
-boot();
 
-function loadState(){
-  try{ return JSON.parse(localStorage.getItem(STATE_KEY)) || {aprobadas:{}, cursadas:{}}; }
-  catch(e){ return {aprobadas:{}, cursadas:{}}; }
+// 2. STATE MANAGEMENT: Guardar y cargar progreso
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STATE_KEY)) || { aprobadas: {}, cursadas: {} };
+  } catch (e) {
+    return { aprobadas: {}, cursadas: {} };
+  }
 }
-function saveState(st){ localStorage.setItem(STATE_KEY, JSON.stringify(st)); }
 
-function init(){
-  setupModal();
-  setupBuscador();
-  setupCollapsibles();
-  setupExportImport();
+function saveState(st) {
+  localStorage.setItem(STATE_KEY, JSON.stringify(st));
+  renderProgreso(); // Actualizar barra de progreso al guardar
+}
+
+// 3. INIT: Configuración inicial
+function init() {
   renderProgreso();
   renderChecklist();
   renderMatriz();
+  setupCollapsibles();
+  setupExportImport();
+  setupModal();
 }
 
-/* =======================
-   PROMEDIO AUTOMÁTICO
-   ======================= */
-function calcularPromedio(state){
-  const notas = Object.values(state.aprobadas || {})
-    .map(reg => Number(reg.nota))
-    .filter(n => !Number.isNaN(n));
+// 4. LÓGICA DE CORRELATIVIDADES
+function getEstadoMateria(materia, state) {
+  const isCursada = state.cursadas[materia.id];
+  const isAprobada = state.aprobadas[materia.id];
 
-  if(notas.length === 0) return null;
+  // Verificar Prerrequisitos para cursar
+  const reqCursada = materia.prerrequisitos?.requiresCursada || [];
+  const reqAcreditar = materia.prerrequisitos?.requiresAcreditar || [];
 
-  const suma = notas.reduce((a,b)=>a+b, 0);
-  return suma / notas.length;
+  // Para poder cursar esta, necesito tener CURSADAS las requeridas
+  const puedeCursar = reqCursada.every(id => state.cursadas[id] || state.aprobadas[id]);
+  
+  // Para poder dar final (acreditar) esta, necesito las anteriores APROBADAS + cursada de esta
+  const puedeAprobar = isCursada && reqAcreditar.every(id => state.aprobadas[id]);
+
+  return { isCursada, isAprobada, puedeCursar, puedeAprobar };
 }
 
-// Export/Import
-function setupExportImport(){
-  const btnExp = document.getElementById('exportar-estado');
-  const btnImp = document.getElementById('importar-estado');
-  const inputFile = document.getElementById('import-file');
-  if(btnExp){
-    btnExp.onclick = () => {
-      const state = loadState();
-      const payload = {version:1, exportedAt:new Date().toISOString(), appKey:STATE_KEY, totalMaterias:materias.length, state};
-      const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'progreso-profesorado-quimica.json';
-      document.body.appendChild(a); a.click(); URL.revokeObjectURL(a.href); a.remove();
-    };
-  }
-  if(btnImp && inputFile){
-    btnImp.onclick = () => inputFile.click();
-    inputFile.onchange = async () => {
-      const file = inputFile.files[0]; if(!file) return;
-      try{
-        const text = await file.text(); const data = JSON.parse(text);
-        if(!data || !data.state){ alert('Archivo inválido.'); return; }
-        if(!confirm('Esto reemplazará el estado actual (aprobadas/cursadas) por el importado. ¿Continuar?')) return;
-        localStorage.setItem(STATE_KEY, JSON.stringify(data.state));
-        renderChecklist(); renderMatriz(); renderProgreso();
-        alert('Estado importado correctamente.');
-      }catch(e){ alert('No se pudo importar el archivo.'); }
-      finally{ inputFile.value = ''; }
-    };
-  }
-}
+// 5. RENDER CHECKLIST (La lista de materias)
+function renderChecklist() {
+  const container = document.getElementById('checklist');
+  if (!container) return;
+  container.innerHTML = '';
 
-// Modal
-function setupModal(){ const dlg = document.getElementById('modal'); document.getElementById('modal-close').onclick = ()=> dlg.close(); }
+  const state = loadState();
+  const grupos = {};
 
-// Reglas aprobación
-function passThreshold(m){ const fmt=(m.formato||'').toLowerCase(); return fmt.includes('asignatura') ? 4 : 7; }
-function isAprobada(m, state){ const reg = state.aprobadas[m.id]; if(!reg) return false; const n=Number(reg.nota); return !Number.isNaN(n) && n>=passThreshold(m); }
-function hasCursada(m, state){ return !!state.cursadas[m.id] || isAprobada(m, state); }
+  // Agrupar por año
+  materias.forEach(m => {
+    if (!grupos[m.anio]) grupos[m.anio] = [];
+    grupos[m.anio].push(m);
+  });
 
-// Buscador
-function setupBuscador(){
-  const input = document.getElementById('search'); const ul = document.getElementById('search-results');
-  input.addEventListener('input', ()=>{ const q=input.value.trim().toLowerCase(); ul.innerHTML=''; if(!q) return;
-    materias.filter(m=>m.nombre.toLowerCase().includes(q)).slice(0,10).forEach(m=>{
-      const li=document.createElement('li'); li.textContent=`${m.id}. ${m.nombre}`;
-      li.onclick=()=>{ const el=document.querySelector(`[data-card-id="${m.id}"]`); if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('pulse'); setTimeout(()=>el.classList.remove('pulse'),800); } };
-      ul.appendChild(li);
+  // Generar HTML por año
+  Object.keys(grupos).forEach(anio => {
+    const section = document.createElement('div');
+    section.className = 'anio-section';
+    section.innerHTML = `<h3 class="anio-title">${anio} Año</h3>`;
+    
+    grupos[anio].forEach(m => {
+      const estado = getEstadoMateria(m, state);
+      const div = document.createElement('div');
+      div.className = `materia-card ${estado.puedeCursar ? 'habilitada' : 'bloqueada'}`;
+      if (estado.isAprobada) div.classList.add('aprobada-full');
+
+      // Checkboxes
+      const checkedCursada = estado.isCursada || estado.isAprobada ? 'checked' : '';
+      const checkedFinal = estado.isAprobada ? 'checked' : '';
+      const disabledCursada = !estado.puedeCursar ? 'disabled' : '';
+      const disabledFinal = !estado.puedeAprobar ? 'disabled' : '';
+
+      div.innerHTML = `
+        <div class="materia-info">
+          <span class="materia-id">#${m.id}</span>
+          <span class="materia-nombre">${m.nombre}</span>
+          ${!estado.puedeCursar ? '<span class="badge bloqueada">Bloqueada</span>' : ''}
+        </div>
+        <div class="materia-actions">
+          <label class="check-label">
+            <input type="checkbox" ${checkedCursada} ${disabledCursada} 
+              onchange="toggleEstado(${m.id}, 'cursada', this.checked)">
+            Cursada
+          </label>
+          <label class="check-label">
+            <input type="checkbox" ${checkedFinal} ${disabledFinal}
+              onchange="toggleEstado(${m.id}, 'final', this.checked)">
+            Final
+          </label>
+        </div>
+      `;
+      section.appendChild(div);
     });
+    container.appendChild(section);
   });
 }
 
-// Correlatividades
-function isHabilitada(m, state){
-  const haveApproved = (id)=>{ const mm=materias.find(x=>x.id===id); return mm?isAprobada(mm,state):false; };
-  const haveCursada = (id)=>{ const mm=materias.find(x=>x.id===id); return mm?hasCursada(mm,state):false; };
-  const allC = (arr)=>arr.every(x=> (typeof x==='number')?haveCursada(x):(x&&x.anyOf)?x.anyOf.some(id=>haveCursada(id)):true);
-  const allA = (arr)=>arr.every(x=> (typeof x==='number')?haveApproved(x):(x&&x.anyOf)?x.anyOf.some(id=>haveApproved(id)):true);
-  const reqC=m.prerrequisitos.requiresCursada||[]; const reqA=m.prerrequisitos.requiresAcreditar||[];
-  return allC(reqC) && allA(reqA);
-}
-function statusDeMateria(m, state){ return isAprobada(m,state)?{tipo:'APROBADA',clase:'aprobada'}:(isHabilitada(m,state)?{tipo:'HABILITADA',clase:'habilitada'}:{tipo:'BLOQUEADA',clase:'bloqueada'}); }
-
-// Checklist
-function renderChecklist(){
-  const cont=document.getElementById('checklist'); const state=loadState(); cont.innerHTML='';
-  materias.forEach(m=>{
-    const st=statusDeMateria(m,state);
-    const card=document.createElement('div'); card.className='card'; card.dataset.cardId=m.id;
-    const head=document.createElement('div'); head.className='card-header';
-    head.innerHTML=`<div class="card-title">${m.id}. ${m.nombre}</div><span class="badge ${st.clase}">${st.tipo}</span>`;
-    const meta=document.createElement('div'); meta.className='meta'; meta.textContent=`Año: ${m.anio} • Régimen: ${m.regimen} • Formato: ${m.formato}`;
-    const row=document.createElement('div'); row.className='row';
-    const chk=document.createElement('input'); chk.type='checkbox'; chk.checked=!!state.cursadas[m.id]; chk.id=`cursada-${m.id}`;
-    const lbl=document.createElement('label'); lbl.htmlFor=chk.id; lbl.textContent='Cursada';
-    chk.onchange=()=>{ const s=loadState(); if(chk.checked){s.cursadas[m.id]=true;} else {delete s.cursadas[m.id];} saveState(s); renderChecklist(); renderMatriz(); renderProgreso(); };
-    const input=document.createElement('input'); input.type='number'; input.min='0'; input.max='10'; input.step='0.1'; input.placeholder='Nota'; input.className='input-nota'; input.value=state.aprobadas[m.id]?.nota ?? '';
-    const btn=document.createElement('button'); btn.className='btn'; btn.textContent='Guardar nota';
-    btn.onclick=()=>{ const nota=parseFloat(input.value); const s=loadState(); if(!Number.isNaN(nota)){ if(!s.aprobadas[m.id]) s.aprobadas[m.id]={}; s.aprobadas[m.id].nota=nota; } else { delete s.aprobadas[m.id]; } saveState(s); renderChecklist(); renderMatriz(); renderProgreso(); };
-    const um=document.createElement('div'); um.className='meta'; um.textContent=`Aprueba con ≥ ${passThreshold(m)}`;
-    row.appendChild(chk); row.appendChild(lbl); row.appendChild(input); row.appendChild(btn);
-    card.appendChild(head); card.appendChild(meta); card.appendChild(row); card.appendChild(um); cont.appendChild(card);
-  });
-}
-
-// Matriz
-function renderMatriz(){
-  const grid=document.getElementById('matriz'); const state=loadState(); grid.innerHTML='';
-  materias.forEach(m=>{
-    const st=statusDeMateria(m,state);
-    const box=document.createElement('div'); box.className=`materia-box ${st.clase}`;
-    const nota=state.aprobadas[m.id]?.nota; const notaTxt=(nota!==undefined && nota!=='')?` • Nota: ${nota}`:'';
-    box.innerHTML=`<div class="nombre">${m.id}. ${m.nombre}</div><div class="detalle">Año ${m.anio} • ${m.regimen} • ${m.formato}${notaTxt}</div>`;
-    box.onclick=()=>{
-      if(st.clase==='bloqueada'){ mostrarBloqueo(m,state); }
-      else if(st.clase==='habilitada'){
-        const val=prompt(`Ingresá la nota final para “${m.nombre}” (aprueba con ≥ ${passThreshold(m)}). Dejá vacío para no guardar.`); if(val===null) return;
-        const n=parseFloat(val); const s=loadState(); if(!Number.isNaN(n)){ if(!s.aprobadas[m.id]) s.aprobadas[m.id]={}; s.aprobadas[m.id].nota=n; saveState(s); renderChecklist(); renderMatriz(); renderProgreso(); }
-      }else{
-        const cur=state.aprobadas[m.id]?.nota ?? ''; const val=prompt(`Cosas del 41 te recomienda que al editar nota para “${m.nombre}” (actual: ${cur}). Borrar para eliminar.`, cur); if(val===null) return;
-        const s=loadState(); if(val.trim()===''){ delete s.aprobadas[m.id]; } else { const n=parseFloat(val); if(!Number.isNaN(n)){ if(!s.aprobadas[m.id]) s.aprobadas[m.id]={}; s.aprobadas[m.id].nota=n; } } saveState(s); renderChecklist(); renderMatriz(); renderProgreso();
-      }
-    };
-    grid.appendChild(box);
-  });
-}
-
-// Bloqueo modal
-function requisitosFaltantesNombres(m, state){
-  const haveApproved=(id)=>{ const mm=materias.find(x=>x.id===id); return mm?isAprobada(mm,state):false; };
-  const haveCursada=(id)=>{ const mm=materias.find(x=>x.id===id); return mm?hasCursada(mm,state):false; };
-  const falt=[];
-  const pushC=(token)=>{ if(typeof token==='number'){ if(!haveCursada(token)){ const mm=materias.find(x=>x.id===token); if(mm) falt.push(mm.nombre); } } else if(token&&token.anyOf){ const ok=token.anyOf.some(id=>haveCursada(id)); if(!ok){ const names=token.anyOf.map(id=>(materias.find(x=>x.id===id)||{}).nombre).filter(Boolean); falt.push('al menos una de: '+names.join(', ')); } } };
-  const pushA=(token)=>{ if(typeof token==='number'){ if(!haveApproved(token)){ const mm=materias.find(x=>x.id===token); if(mm) falt.push(mm.nombre); } } else if(token&&token.anyOf){ const ok=token.anyOf.some(id=>haveApproved(id)); if(!ok){ const names=token.anyOf.map(id=>(materias.find(x=>x.id===id)||{}).nombre).filter(Boolean); falt.push('al menos una de: '+names.join(', ')); } } };
-  (m.prerrequisitos.requiresCursada||[]).forEach(pushC);
-  (m.prerrequisitos.requiresAcreditar||[]).forEach(pushA);
-  return falt;
-}
-function mostrarBloqueo(m, state){
-  const faltan=requisitosFaltantesNombres(m,state);
-  const body=document.getElementById('modal-body');
-  body.innerHTML=`<strong>Para cursar:</strong> ${m.nombre}<br><strong>Necesitás:</strong>` + (faltan.length?('<ul>'+faltan.map(x=>`<li>${x}</li>`).join('')+'</ul>'):' <em>No pudimos determinar los requisitos.</em>');
-  document.getElementById('modal').showModal();
-}
-
-// Progreso
-function renderProgreso(){
-  const state=loadState(); const total=materias.length;
-  const aprobadasIds=Object.keys(state.aprobadas).map(k=>Number(k)).filter(id=>{ const m=materias.find(x=>x.id===id); return m && isAprobada(m,state); });
-  const aprobadas=aprobadasIds.length; const porcentaje=total>0?Math.round((aprobadas/total)*100):0;
-
-  const topline=document.getElementById('progreso-topline');
-  if(topline){
-    const curs = Object.keys(state.cursadas||{}).length;
-    const promedio = calcularPromedio(state);
-    const promTxt = promedio !== null ? ` • Promedio: ${promedio.toFixed(2)}` : '';
-    topline.textContent =
-      `Aprobadas: ${aprobadas}/${total} (${porcentaje}%) • Cursadas: ${curs}${promTxt}`;
+// 6. ACCIONES DE CHECKBOX
+window.toggleEstado = function(id, tipo, valor) {
+  const state = loadState();
+  
+  if (tipo === 'cursada') {
+    if (valor) state.cursadas[id] = true;
+    else {
+      state.cursadas[id] = false;
+      state.aprobadas[id] = false; // Si saco cursada, saco final
+    }
+  } else if (tipo === 'final') {
+    if (valor) {
+      state.aprobadas[id] = true;
+      state.cursadas[id] = true; // Si aprobé, seguro cursé
+    } else {
+      state.aprobadas[id] = false;
+    }
   }
 
-  const fill=document.getElementById('progress-fill'); if(fill){ fill.style.width=porcentaje+'%'; }
-  const nota=document.getElementById('progreso-nota'); if(nota){ let msg=''; if(porcentaje===100) msg='Felicitaciones, podes anotarte en el 108 A'; else if(porcentaje>=75) msg='Podes anotarte en el listado 108 b Item 4'; else if(porcentaje>=50) msg='Podes anotarte en el listado 108 b Item 5'; else if(porcentaje>25) msg='Podes anotarte en el listado de Emergencia'; else msg='Seguí sumando materias para habilitar listados.'; nota.textContent=msg; }
+  saveState(state);
+  // Re-renderizar todo para actualizar bloqueos y visuales
+  renderChecklist(); 
+  renderMatriz();
+  renderProgreso();
+};
+
+// 7. RENDER PROGRESO
+function renderProgreso() {
+  const state = loadState();
+  const total = materias.length;
+  if (total === 0) return;
+
+  const aprobadas = Object.values(state.aprobadas).filter(v => v).length;
+  const porcentaje = Math.round((aprobadas / total) * 100);
+
+  const fill = document.getElementById('progress-fill');
+  const nota = document.getElementById('progreso-nota');
+  
+  if (fill) fill.style.width = `${porcentaje}%`;
+  
+  if (nota) {
+    let msg = 'Seguí sumando materias.';
+    if (porcentaje >= 25 && porcentaje < 50) msg = '¡Bien! Ya podés anotarte en Listado de Emergencia.';
+    else if (porcentaje >= 50 && porcentaje < 75) msg = '¡Excelente! Habilitado para Listado 108 B Item 5.';
+    else if (porcentaje >= 75 && porcentaje < 100) msg = '¡Casi listo! Habilitado para Listado 108 B Item 4.';
+    else if (porcentaje === 100) msg = '¡Felicitaciones! Título completo (Listado 108 A).';
+    
+    nota.textContent = `${aprobadas}/${total} Materias (${porcentaje}%) • ${msg}`;
+  }
 }
 
-// Colapsables
-function setupCollapsibles(){
-  document.querySelectorAll('.collapse-toggle').forEach(btn0=>{ const id0=btn0.getAttribute('data-target'); const panel0=document.getElementById(id0); if(panel0 && panel0.classList.contains('collapsed')){ btn0.textContent=btn0.textContent.replace('▾','▸'); } });
-  document.querySelectorAll('.collapse-toggle').forEach(btn=>{ const id=btn.getAttribute('data-target'); const panel=document.getElementById(id); btn.addEventListener('click', ()=>{ panel.classList.toggle('collapsed'); btn.textContent = btn.textContent.includes('▾') ? btn.textContent.replace('▾','▸') : btn.textContent.replace('▸','▾'); }); });
+// 8. RENDER MATRIZ (Visualización simple de grilla)
+function renderMatriz() {
+  const container = document.getElementById('matriz');
+  if (!container) return;
+  
+  const state = loadState();
+  container.innerHTML = '';
+  
+  materias.forEach(m => {
+    const estado = getEstadoMateria(m, state);
+    const div = document.createElement('div');
+    div.textContent = m.id;
+    div.title = m.nombre;
+    div.className = 'matriz-item';
+    
+    if (estado.isAprobada) {
+        div.style.background = 'var(--ok, #2a7a2a)';
+        div.style.color = '#fff';
+    } else if (estado.isCursada) {
+        div.style.background = '#8ebf8e'; 
+    } else if (!estado.puedeCursar) {
+        div.style.background = 'var(--bad, #b23b3b)';
+        div.style.color = '#fff';
+        div.style.opacity = '0.5';
+    } else {
+        div.style.border = '1px solid var(--ink)';
+    }
+    
+    // Estilos inline básicos para la matriz si no están en CSS
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'center';
+    div.style.fontWeight = 'bold';
+    div.style.borderRadius = '4px';
+    div.style.padding = '4px';
+    div.style.fontSize = '0.8rem';
+    
+    container.appendChild(div);
+  });
 }
-// --- COPIA Y PEGA ESTO AL FINAL DE TU ARCHIVO SCRIPT.JS ---
 
+// 9. COLLAPSIBLES (La parte que arreglamos antes)
 function setupCollapsibles() {
   document.querySelectorAll('.collapse-toggle').forEach(btn => {
     const id = btn.getAttribute('data-target');
     const panel = document.getElementById(id);
-
     if (!panel) return;
 
-    // 1. Configuración inicial: poner la flecha correcta según si arranca cerrado o abierto
-    if (panel.classList.contains('collapsed')) {
-      btn.textContent = btn.textContent.replace('▾', '▸');
-    } else {
-      btn.textContent = btn.textContent.replace('▸', '▾');
-    }
+    // Set icon inicial
+    const updateIcon = () => {
+       const isCollapsed = panel.classList.contains('collapsed');
+       btn.textContent = btn.textContent.replace(/[▸▾]/g, isCollapsed ? '▸' : '▾');
+    };
+    updateIcon();
 
-    // 2. Evento Click: abrir/cerrar y cambiar la flecha
     btn.onclick = () => {
       panel.classList.toggle('collapsed');
-      
-      if (panel.classList.contains('collapsed')) {
-        btn.textContent = btn.textContent.replace('▾', '▸');
-      } else {
-        btn.textContent = btn.textContent.replace('▸', '▾');
-      }
+      updateIcon();
     };
   });
 }
 
-// NOTA: Tu código original llamaba a 'renderMatriz()' en init(), 
-// pero esa función parece faltar en el archivo cortado. 
-// Agrega este bloque para evitar que la página se rompa si la función no existe:
-if (typeof renderMatriz === 'undefined') {
-  window.renderMatriz = function() {
-    const m = document.getElementById('matriz');
-    if(m) m.innerHTML = '<p style="padding:10px; color:#666">La visualización de matriz no está disponible en este script.</p>';
-  };
+// 10. EXPORT / IMPORT / MODAL
+function setupExportImport() {
+  const btnExport = document.getElementById('exportar-estado');
+  const btnImport = document.getElementById('importar-estado');
+  const fileInput = document.getElementById('import-file');
+
+  if(btnExport) {
+    btnExport.onclick = () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(loadState()));
+      const downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", "progreso_materias.json");
+      document.body.appendChild(downloadAnchorNode); // required for firefox
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    };
+  }
+
+  if(btnImport && fileInput) {
+    btnImport.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const newState = JSON.parse(event.target.result);
+          if(newState.aprobadas && newState.cursadas) {
+            saveState(newState);
+            renderChecklist();
+            renderMatriz();
+            alert('Progreso importado correctamente.');
+          } else {
+            alert('El archivo no tiene el formato correcto.');
+          }
+        } catch(err) {
+          alert('Error al leer el archivo JSON.');
+        }
+      };
+      reader.readAsText(file);
+    };
+  }
 }
+
+function setupModal() {
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementById('modal-close');
+    if(modal && closeBtn) {
+        closeBtn.onclick = () => modal.close();
+    }
+}
+
+// Arrancar
+boot();
