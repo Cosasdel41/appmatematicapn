@@ -200,3 +200,41 @@ function setupCollapsibles(){
   document.querySelectorAll('.collapse-toggle').forEach(btn0=>{ const id0=btn0.getAttribute('data-target'); const panel0=document.getElementById(id0); if(panel0 && panel0.classList.contains('collapsed')){ btn0.textContent=btn0.textContent.replace('▾','▸'); } });
   document.querySelectorAll('.collapse-toggle').forEach(btn=>{ const id=btn.getAttribute('data-target'); const panel=document.getElementById(id); btn.addEventListener('click', ()=>{ panel.classList.toggle('collapsed'); btn.textContent = btn.textContent.includes('▾') ? btn.textContent.replace('▾','▸') : btn.textContent.replace('▸','▾'); }); });
 }
+// --- COPIA Y PEGA ESTO AL FINAL DE TU ARCHIVO SCRIPT.JS ---
+
+function setupCollapsibles() {
+  document.querySelectorAll('.collapse-toggle').forEach(btn => {
+    const id = btn.getAttribute('data-target');
+    const panel = document.getElementById(id);
+
+    if (!panel) return;
+
+    // 1. Configuración inicial: poner la flecha correcta según si arranca cerrado o abierto
+    if (panel.classList.contains('collapsed')) {
+      btn.textContent = btn.textContent.replace('▾', '▸');
+    } else {
+      btn.textContent = btn.textContent.replace('▸', '▾');
+    }
+
+    // 2. Evento Click: abrir/cerrar y cambiar la flecha
+    btn.onclick = () => {
+      panel.classList.toggle('collapsed');
+      
+      if (panel.classList.contains('collapsed')) {
+        btn.textContent = btn.textContent.replace('▾', '▸');
+      } else {
+        btn.textContent = btn.textContent.replace('▸', '▾');
+      }
+    };
+  });
+}
+
+// NOTA: Tu código original llamaba a 'renderMatriz()' en init(), 
+// pero esa función parece faltar en el archivo cortado. 
+// Agrega este bloque para evitar que la página se rompa si la función no existe:
+if (typeof renderMatriz === 'undefined') {
+  window.renderMatriz = function() {
+    const m = document.getElementById('matriz');
+    if(m) m.innerHTML = '<p style="padding:10px; color:#666">La visualización de matriz no está disponible en este script.</p>';
+  };
+}
