@@ -152,11 +152,10 @@
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
       "prerrequisitos": {
-        "requiresCursada": []
-          }
-        ],
+        "requiresCursada": [],
         "requiresAcreditar": []
       }
+    },
     {
       "id": 15,
       "anio": "2do",
@@ -218,7 +217,7 @@
       "regimen": "Anual",
       "formato": "Taller y Terreno",
       "prerrequisitos": {
-        "requiresCursada": []
+        "requiresCursada": [],
         "requiresAcreditar": [
           2,
           4,
@@ -411,7 +410,7 @@
       "prerrequisitos": {
         "requiresCursada": [
           21
-            ],
+        ],
         "requiresAcreditar": []
       }
     },
@@ -595,7 +594,7 @@
           22,
           23,
           28
-          ],
+        ],
         "requiresAcreditar": [
           10,
           14,
@@ -604,7 +603,6 @@
         ]
       }
     },
-  
     {
       "id": 42,
       "anio": "4to",
@@ -636,3 +634,5 @@
         "requiresAcreditar": []
       }
     }
+  ]
+}
