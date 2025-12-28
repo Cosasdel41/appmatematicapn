@@ -1,0 +1,100 @@
+
+/* ===== Paleta y base (mobile-first) ===== */
+:root{
+  --bg:#f3efdc;        /* fondo crema */
+  --ink:#24496e;       /* azul petróleo para textos y acentos */
+  --card:#ffffff;
+  --muted:#e6e1c9;
+  --ok:#2a7a2a;
+  --bad:#b23b3b;
+  --radius:16px;
+  --shadow:0 6px 16px rgba(36,73,110,.10);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;line-height:1.3}
+
+/* ===== Header sticky para celular ===== */
+.app-header{position:sticky;top:0;z-index:10;padding:14px 16px;background:var(--ink);color:var(--bg);border-bottom:2px solid rgba(0,0,0,.05)}
+.app-header h1{margin:0;font-size:1.2rem;font-weight:800;letter-spacing:.2px}
+.subtitle{margin:.15rem 0 0;opacity:.92;font-size:.9rem}
+
+/* ===== Contenedor principal ===== */
+.container{display:grid;gap:12px;padding:12px}
+.panel{background:var(--card);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
+h2{margin:.25rem 0 12px;font-size:1rem}
+
+/* ===== Progreso ===== */
+#progreso-wrap{display:flex;flex-direction:column;gap:8px}
+#progreso-topline{font-weight:700}
+.progress{width:100%;height:12px;background:var(--muted);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:var(--ink);transition:width .35s ease}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--muted)}
+
+/* ===== Buscador ===== */
+#search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--muted);outline:none;font-size:1rem}
+#search:focus{box-shadow:0 0 0 3px rgba(36,73,110,.2)}
+#search-results{list-style:none;margin:10px 0 0;padding:0}
+#search-results li{padding:10px 8px;border-bottom:1px dashed var(--muted);cursor:pointer;font-size:.95rem}
+#search-results li:last-child{border-bottom:none}
+#search-results li:hover{background:rgba(36,73,110,.06)}
+
+/* ===== Checklist ===== */
+#checklist{display:flex;flex-direction:column;gap:10px}
+.card{border:1px solid var(--muted);border-radius:var(--radius);padding:12px}
+.card-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.card-title{font-weight:700}
+.meta{font-size:.85rem;opacity:.9}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.row label{margin-right:4px}
+.input-nota{width:84px;padding:10px;border:1px solid var(--muted);border-radius:12px;font-size:1rem}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;border:1.5px solid;letter-spacing:.2px;font-size:.72rem;white-space:nowrap}
+.badge.aprobada{border-color:var(--ok);color:var(--ok)}
+.badge.habilitada{border-color:#446aa3;color:#446aa3}
+.badge.bloqueada{border-color:var(--bad);color:var(--bad)}
+
+/* ===== Matriz ===== */
+.matriz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.materia-box{border:1px solid var(--muted);border-radius:18px;padding:12px;cursor:pointer;transition:transform .07s ease, box-shadow .2s ease;background:#fff}
+.materia-box:hover{transform:translateY(-1px);box-shadow:0 8px 16px rgba(36,73,110,.12)}
+.materia-box .nombre{font-size:.98rem;font-weight:700;margin:0 0 6px}
+.materia-box .detalle{font-size:.84rem;opacity:.95}
+.materia-box.aprobada{outline:2px solid var(--ok);background:rgba(42,122,42,.06)}
+.materia-box.habilitada{outline:2px solid #446aa3;background:rgba(68,106,163,.08)}
+.materia-box.bloqueada{outline:2px solid var(--bad);background:rgba(178,59,59,.06)}
+
+.legend{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* ===== Botones / Modal ===== */
+.btn{background:var(--ink);color:var(--bg);border:none;border-radius:12px;padding:10px 14px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.btn:active{transform:translateY(1px)}
+dialog{border:none;border-radius:18px;padding:0}
+.modal-content{padding:16px 16px 12px;max-width:560px}
+.modal-content h3{margin:0 0 8px}
+.modal-content p{margin:0 0 12px;line-height:1.45}
+
+/* ===== Collapsibles ===== */
+.collapse-toggle{all:unset;cursor:pointer;background:rgba(36,73,110,.08);padding:8px 12px;border-radius:12px;font-weight:800}
+.collapsible-body{margin-top:10px}
+.collapsed .collapsible-body{display:none}
+.collapsed .collapse-toggle{background:rgba(36,73,110,.14)}
+
+/* ===== Footer ===== */
+.app-footer{padding:16px;text-align:center;opacity:.85;font-size:.85rem}
+.app-footer a{color:var(--ink);text-decoration:underline}
+
+/* ===== Accesibilidad y toques grandes ===== */
+@media (pointer:coarse){ .btn, .collapse-toggle, #search, .input-nota{min-height:44px} }
+
+/* ===== Desktop (manteniendo mobile-first) ===== */
+@media (min-width: 900px){
+  .container{grid-template-columns:1fr 1fr 1fr}
+  .app-header h1{font-size:1.35rem}
+}
+/* resaltado al saltar desde buscador */
+.pulse{box-shadow:0 0 0 3px rgba(36,73,110,.25)}
+
+
+/* Alertas simples (para errores de carga) */
+.alert{margin:10px 12px;padding:10px 12px;border-radius:12px;background:#fff7cc;border:1px solid #f0d76d;color:#624a00;font-weight:600}
