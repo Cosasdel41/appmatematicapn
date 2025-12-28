@@ -287,8 +287,7 @@
       "prerrequisitos": {
         "requiresCursada": [
           16
-        ]
-          }
+        ],
         "requiresAcreditar": []
       }
     },
@@ -412,9 +411,7 @@
       "prerrequisitos": {
         "requiresCursada": [
           21
-            ]
-          }
-        ],
+            ],
         "requiresAcreditar": []
       }
     },
@@ -609,8 +606,8 @@
     },
   
     {
-      "id": 44,
-      "anio": "-",
+      "id": 42,
+      "anio": "4to",
       "nombre": "Unidad Curricular Optativa",
       "regimen": "Anual",
       "formato": "Taller",
