@@ -6,10 +6,7 @@
       "nombre": "Pedagogía",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 2,
@@ -17,10 +14,7 @@
       "nombre": "Educación y transformaciones sociales contemporáneas",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 3,
@@ -28,10 +22,7 @@
       "nombre": "Educación sexual integral",
       "regimen": "Cuatrimestral",
       "formato": "Taller",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 4,
@@ -39,10 +30,7 @@
       "nombre": "Taller de resolución de problemas aritméticos",
       "regimen": "Cuatrimestral",
       "formato": "Taller",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 5,
@@ -50,10 +38,7 @@
       "nombre": "Introducción a la probabilidad y a la estadística",
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 6,
@@ -61,10 +46,7 @@
       "nombre": "Modelos funcionales",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 7,
@@ -72,10 +54,7 @@
       "nombre": "Geometría I",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 8,
@@ -83,10 +62,7 @@
       "nombre": "Introducción al álgebra",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 9,
@@ -94,23 +70,16 @@
       "nombre": "Práctica Docente I",
       "regimen": "Anual",
       "formato": "Taller y Terreno",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
+
     {
       "id": 10,
       "anio": "2do",
       "nombre": "Didáctica y curriculum",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          1
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [1], "requiresAcreditar": [] }
     },
     {
       "id": 11,
@@ -118,10 +87,7 @@
       "nombre": "Psicología del aprendizaje",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 12,
@@ -129,10 +95,7 @@
       "nombre": "Análisis de las instituciones educativas",
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 13,
@@ -140,10 +103,7 @@
       "nombre": "Cultura Digital y Educación",
       "regimen": "Cuatrimestral",
       "formato": "Taller",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 14,
@@ -151,25 +111,15 @@
       "nombre": "Didáctica de la matemática I",
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": []
-          }
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
+    },
     {
       "id": 15,
       "anio": "2do",
       "nombre": "Seminario de enseñanza de la aritmética y el álgebra",
       "regimen": "Cuatrimestral",
       "formato": "Seminario",
-      "prerrequisitos": {
-        "requiresCursada": [
-          4,
-          8
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [4, 8], "requiresAcreditar": [] }
     },
     {
       "id": 16,
@@ -177,12 +127,7 @@
       "nombre": "Análisis matemático I",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          6
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [6], "requiresAcreditar": [] }
     },
     {
       "id": 17,
@@ -190,12 +135,7 @@
       "nombre": "Geometría II",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          7
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [7], "requiresAcreditar": [] }
     },
     {
       "id": 18,
@@ -203,13 +143,7 @@
       "nombre": "Álgebra I",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          4,
-          8
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [4, 8], "requiresAcreditar": [] }
     },
     {
       "id": 19,
@@ -217,28 +151,16 @@
       "nombre": "Práctica Docente II",
       "regimen": "Anual",
       "formato": "Taller y Terreno",
-      "prerrequisitos": {
-        "requiresCursada": []
-        "requiresAcreditar": [
-          2,
-          4,
-          9
-        ]
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [2, 4, 9] }
     },
+
     {
       "id": 20,
       "anio": "3ro",
       "nombre": "Política educativa argentina",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          1,
-          2
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [1, 2], "requiresAcreditar": [] }
     },
     {
       "id": 21,
@@ -246,10 +168,7 @@
       "nombre": "Problemas filosóficos de la educación",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [], "requiresAcreditar": [] }
     },
     {
       "id": 22,
@@ -257,13 +176,7 @@
       "nombre": "Trayectorias educativas",
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          3,
-          13
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [3, 13], "requiresAcreditar": [] }
     },
     {
       "id": 23,
@@ -271,12 +184,7 @@
       "nombre": "Didáctica de la matemática II",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          14
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [14], "requiresAcreditar": [] }
     },
     {
       "id": 24,
@@ -284,13 +192,7 @@
       "nombre": "Análisis matemático II",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          16
-        ]
-          }
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [16], "requiresAcreditar": [] }
     },
     {
       "id": 25,
@@ -298,14 +200,7 @@
       "nombre": "Geometría III",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          16,
-          17,
-          18
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [16, 17, 18], "requiresAcreditar": [] }
     },
     {
       "id": 26,
@@ -313,12 +208,7 @@
       "nombre": "Álgebra II",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          18
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [18], "requiresAcreditar": [] }
     },
     {
       "id": 27,
@@ -326,13 +216,7 @@
       "nombre": "Probabilidad y estadística",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          5,
-          16
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [5, 16], "requiresAcreditar": [] }
     },
     {
       "id": 28,
@@ -340,12 +224,7 @@
       "nombre": "Seminario de enseñanza de la geometría",
       "regimen": "Cuatrimestral",
       "formato": "Seminario",
-      "prerrequisitos": {
-        "requiresCursada": [
-          7
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [7], "requiresAcreditar": [] }
     },
     {
       "id": 29,
@@ -354,25 +233,8 @@
       "regimen": "Anual",
       "formato": "Taller y Terreno",
       "prerrequisitos": {
-        "requiresCursada": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          14,
-          15
-        ],
-        "requiresAcreditar": [
-          1,
-          7,
-          9
-        ]
+        "requiresCursada": [1,2,3,4,5,6,7,8,9,10,14,15],
+        "requiresAcreditar": [1,7,9]
       }
     },
     {
@@ -382,41 +244,18 @@
       "regimen": "Cuatrimestral",
       "formato": "Ateneo",
       "prerrequisitos": {
-        "requiresCursada": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          14,
-          15
-        ],
-        "requiresAcreditar": [
-          1,
-          8,
-          9
-        ]
+        "requiresCursada": [1,2,3,4,5,6,7,8,9,10,14,15],
+        "requiresAcreditar": [1,8,9]
       }
     },
+
     {
       "id": 31,
       "anio": "4to",
       "nombre": "Pensamiento político pedagógico latinoamericano",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          21
-            ]
-          }
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [21], "requiresAcreditar": [] }
     },
     {
       "id": 32,
@@ -424,12 +263,7 @@
       "nombre": "Políticas inclusivas y propuestas pedagógicas igualitarias",
       "regimen": "Cuatrimestral",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          22
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [22], "requiresAcreditar": [] }
     },
     {
       "id": 33,
@@ -437,18 +271,7 @@
       "nombre": "EOI",
       "regimen": "Cuatrimestral",
       "formato": "Taller",
-      "prerrequisitos": {
-        "requiresCursada": [
-          1,
-          2,
-          3,
-          10,
-          11,
-          12,
-          13
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [1,2,3,10,11,12,13], "requiresAcreditar": [] }
     },
     {
       "id": 34,
@@ -456,14 +279,7 @@
       "nombre": "Didáctica de la matemática III",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          23
-        ],
-        "requiresAcreditar": [
-          14
-        ]
-      }
+      "prerrequisitos": { "requiresCursada": [23], "requiresAcreditar": [14] }
     },
     {
       "id": 35,
@@ -471,15 +287,7 @@
       "nombre": "Modelos matemáticos en las ciencias",
       "regimen": "Anual",
       "formato": "Taller",
-      "prerrequisitos": {
-        "requiresCursada": [
-          16,
-          17,
-          18,
-          27
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [16,17,18,27], "requiresAcreditar": [] }
     },
     {
       "id": 36,
@@ -487,14 +295,7 @@
       "nombre": "Seminario de física asociada a la matemática",
       "regimen": "Anual",
       "formato": "Seminario",
-      "prerrequisitos": {
-        "requiresCursada": [
-          7,
-          16,
-          18
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [7,16,18], "requiresAcreditar": [] }
     },
     {
       "id": 37,
@@ -502,15 +303,7 @@
       "nombre": "Historia y epistemología de la matemática",
       "regimen": "Anual",
       "formato": "Asignatura",
-      "prerrequisitos": {
-        "requiresCursada": [
-          14,
-          16,
-          25,
-          26
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [14,16,25,26], "requiresAcreditar": [] }
     },
     {
       "id": 38,
@@ -518,13 +311,7 @@
       "nombre": "Seminario de enseñanza de las funciones",
       "regimen": "Cuatrimestral",
       "formato": "Seminario",
-      "prerrequisitos": {
-        "requiresCursada": [
-          6,
-          14
-        ],
-        "requiresAcreditar": []
-      }
+      "prerrequisitos": { "requiresCursada": [6,14], "requiresAcreditar": [] }
     },
     {
       "id": 39,
@@ -533,18 +320,7 @@
       "regimen": "Cuatrimestral",
       "formato": "Taller",
       "prerrequisitos": {
-        "requiresCursada": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          14,
-          15,
-          16,
-          17,
-          18
-        ],
+        "requiresCursada": [4,5,6,7,8,14,15,16,17,18],
         "requiresAcreditar": []
       }
     },
@@ -553,28 +329,10 @@
       "anio": "4to",
       "nombre": "Práctica Docente IV",
       "regimen": "Anual",
-      "formato": "Taller y Tereno",
+      "formato": "Taller y Terreno",
       "prerrequisitos": {
-        "requiresCursada": [
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          22,
-          23,
-          28
-        ],
-        "requiresAcreditar": [
-          10,
-          14,
-          29
-        ]
+        "requiresCursada": [10,11,12,13,14,15,16,17,18,19,22,23,28],
+        "requiresAcreditar": [10,14,29]
       }
     },
     {
@@ -584,30 +342,10 @@
       "regimen": "Cuatrimestral",
       "formato": "Ateneo",
       "prerrequisitos": {
-        "requiresCursada": [
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          22,
-          23,
-          28
-          ],
-        "requiresAcreditar": [
-          10,
-          14,
-          29,
-          30
-        ]
+        "requiresCursada": [10,11,12,13,14,15,16,17,18,19,22,23,28],
+        "requiresAcreditar": [10,14,29,30]
       }
     },
-  
     {
       "id": 44,
       "anio": "-",
@@ -615,27 +353,7 @@
       "regimen": "Anual",
       "formato": "Taller",
       "prerrequisitos": {
-        "requiresCursada": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19
-        ],
+        "requiresCursada": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
         "requiresAcreditar": []
       }
     }
