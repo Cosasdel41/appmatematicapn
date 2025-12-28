@@ -1,0 +1,82 @@
+
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profesorado de Matemática • Correlatividades</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#24496e">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Profesorado de Matemática</h1>
+    <p class="subtitle">Correlatividades y avance de materias</p>
+  </header>
+
+  <main class="container">
+    <!-- Progreso -->
+    <section class="panel" id="progreso-panel">
+      <h2>Progreso</h2>
+      <div id="progreso-wrap">
+        <div class="actions">
+          <button id="exportar-estado" class="btn">Exportar estado</button>
+          <button id="importar-estado" class="btn">Importar estado</button>
+          <input id="import-file" type="file" accept="application/json" style="display:none" />
+        </div>
+        <div id="progreso-topline"></div>
+        <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        <div id="progreso-nota" class="meta"></div>
+      </div>
+    </section>
+
+    <!-- Buscador -->
+    <section class="panel" id="buscador-panel">
+      <h2>Buscador</h2>
+      <input id="search" type="search" placeholder="Buscar por nombre de materia…" autocomplete="off" />
+      <ul id="search-results"></ul>
+    </section>
+
+    <!-- Checklist (collapsed by default) -->
+    <section class="panel collapsed" id="checklist-panel">
+      <h2><button class="collapse-toggle" data-target="checklist-panel">Checklist ▸</button></h2>
+      <div class="collapsible-body" data-body="checklist-panel">
+        <div id="checklist"></div>
+      </div>
+    </section>
+
+    <!-- Matriz (collapsed by default) -->
+    <section class="panel collapsed" id="matriz-panel">
+      <h2><button class="collapse-toggle" data-target="matriz-panel">Matriz de correlatividades ▸</button></h2>
+      <div class="collapsible-body" data-body="matriz-panel">
+        <div id="matriz" class="matriz-grid"></div>
+        <div class="legend">
+          <span class="badge aprobada">APROBADA</span>
+          <span class="badge habilitada">HABILITADA</span>
+          <span class="badge bloqueada">BLOQUEADA</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <dialog id="modal">
+    <div class="modal-content">
+      <h3 id="modal-title">Materia bloqueada por correlatividad</h3>
+      <p id="modal-body"></p>
+      <button id="modal-close" class="btn">Cerrar</button>
+    </div>
+  </dialog>
+
+  <footer class="app-footer">
+    <small>Aplicación optimizada por <a href="https://instagram.com/cosasdelisfd41" target="_blank" rel="noopener noreferrer">@cosasdelisfd41</a></small><br>
+    <small><a href="https://cafecito.app/cosasdel41" target="_blank" rel="noopener noreferrer">bancá con un cafecito</a> para seguir creciendo</small>
+  </footer>
+
+  <script src="script.js?v=3"></script>
+</body>
+</html>
+
