@@ -1,0 +1,643 @@
+{
+  "materias": [
+    {
+      "id": 1,
+      "anio": "1ro",
+      "nombre": "Pedagogía",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 2,
+      "anio": "1ro",
+      "nombre": "Educación y transformaciones sociales contemporáneas",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 3,
+      "anio": "1ro",
+      "nombre": "Educación sexual integral",
+      "regimen": "Cuatrimestral",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 4,
+      "anio": "1ro",
+      "nombre": "Taller de resolución de problemas aritméticos",
+      "regimen": "Cuatrimestral",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 5,
+      "anio": "1ro",
+      "nombre": "Introducción a la probabilidad y a la estadística",
+      "regimen": "Cuatrimestral",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 6,
+      "anio": "1ro",
+      "nombre": "Modelos funcionales",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 7,
+      "anio": "1ro",
+      "nombre": "Geometría I",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 8,
+      "anio": "1ro",
+      "nombre": "Introducción al álgebra",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 9,
+      "anio": "1ro",
+      "nombre": "Práctica Docente I",
+      "regimen": "Anual",
+      "formato": "Taller y Terreno",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 10,
+      "anio": "2do",
+      "nombre": "Didáctica y curriculum",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 11,
+      "anio": "2do",
+      "nombre": "Psicología del aprendizaje",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 12,
+      "anio": "2do",
+      "nombre": "Análisis de las instituciones educativas",
+      "regimen": "Cuatrimestral",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 13,
+      "anio": "2do",
+      "nombre": "Cultura Digital y Educación",
+      "regimen": "Cuatrimestral",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 14,
+      "anio": "2do",
+      "nombre": "Didáctica de la matemática I",
+      "regimen": "Cuatrimestral",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": []
+          }
+        ],
+        "requiresAcreditar": []
+      }
+    {
+      "id": 15,
+      "anio": "2do",
+      "nombre": "Seminario de enseñanza de la aritmética y el álgebra",
+      "regimen": "Cuatrimestral",
+      "formato": "Seminario",
+      "prerrequisitos": {
+        "requiresCursada": [
+          4,
+          8
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 16,
+      "anio": "2do",
+      "nombre": "Análisis matemático I",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          6
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 17,
+      "anio": "2do",
+      "nombre": "Geometría II",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          7
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 18,
+      "anio": "2do",
+      "nombre": "Álgebra I",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          4,
+          8
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 19,
+      "anio": "2do",
+      "nombre": "Práctica Docente II",
+      "regimen": "Anual",
+      "formato": "Taller y Terreno",
+      "prerrequisitos": {
+        "requiresCursada": []
+        "requiresAcreditar": [
+          2,
+          4,
+          9
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "anio": "3ro",
+      "nombre": "Política educativa argentina",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1,
+          2
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 21,
+      "anio": "3ro",
+      "nombre": "Problemas filosóficos de la educación",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 22,
+      "anio": "3ro",
+      "nombre": "Trayectorias educativas",
+      "regimen": "Cuatrimestral",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          3,
+          13
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 23,
+      "anio": "3ro",
+      "nombre": "Didáctica de la matemática II",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          14
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 24,
+      "anio": "3ro",
+      "nombre": "Análisis matemático II",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          16
+        ]
+          }
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 25,
+      "anio": "3ro",
+      "nombre": "Geometría III",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          16,
+          17,
+          18
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 26,
+      "anio": "3ro",
+      "nombre": "Álgebra II",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          18
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 27,
+      "anio": "3ro",
+      "nombre": "Probabilidad y estadística",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          5,
+          16
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 28,
+      "anio": "3ro",
+      "nombre": "Seminario de enseñanza de la geometría",
+      "regimen": "Cuatrimestral",
+      "formato": "Seminario",
+      "prerrequisitos": {
+        "requiresCursada": [
+          7
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 29,
+      "anio": "3ro",
+      "nombre": "Práctica Docente III",
+      "regimen": "Anual",
+      "formato": "Taller y Terreno",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          14,
+          15
+        ],
+        "requiresAcreditar": [
+          1,
+          7,
+          9
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "anio": "3ro",
+      "nombre": "La enseñanza de la matemática como práctica situada I",
+      "regimen": "Cuatrimestral",
+      "formato": "Ateneo",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          14,
+          15
+        ],
+        "requiresAcreditar": [
+          1,
+          8,
+          9
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "anio": "4to",
+      "nombre": "Pensamiento político pedagógico latinoamericano",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          21
+            ]
+          }
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 32,
+      "anio": "4to",
+      "nombre": "Políticas inclusivas y propuestas pedagógicas igualitarias",
+      "regimen": "Cuatrimestral",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          22
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 33,
+      "anio": "4to",
+      "nombre": "EOI",
+      "regimen": "Cuatrimestral",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1,
+          2,
+          3,
+          10,
+          11,
+          12,
+          13
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 34,
+      "anio": "4to",
+      "nombre": "Didáctica de la matemática III",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          23
+        ],
+        "requiresAcreditar": [
+          14
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "anio": "4to",
+      "nombre": "Modelos matemáticos en las ciencias",
+      "regimen": "Anual",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [
+          16,
+          17,
+          18,
+          27
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 36,
+      "anio": "4to",
+      "nombre": "Seminario de física asociada a la matemática",
+      "regimen": "Anual",
+      "formato": "Seminario",
+      "prerrequisitos": {
+        "requiresCursada": [
+          7,
+          16,
+          18
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 37,
+      "anio": "4to",
+      "nombre": "Historia y epistemología de la matemática",
+      "regimen": "Anual",
+      "formato": "Asignatura",
+      "prerrequisitos": {
+        "requiresCursada": [
+          14,
+          16,
+          25,
+          26
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 38,
+      "anio": "4to",
+      "nombre": "Seminario de enseñanza de las funciones",
+      "regimen": "Cuatrimestral",
+      "formato": "Seminario",
+      "prerrequisitos": {
+        "requiresCursada": [
+          6,
+          14
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 39,
+      "anio": "4to",
+      "nombre": "EOI",
+      "regimen": "Cuatrimestral",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "requiresAcreditar": []
+      }
+    },
+    {
+      "id": 40,
+      "anio": "4to",
+      "nombre": "Práctica Docente IV",
+      "regimen": "Anual",
+      "formato": "Taller y Tereno",
+      "prerrequisitos": {
+        "requiresCursada": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          22,
+          23,
+          28
+        ],
+        "requiresAcreditar": [
+          10,
+          14,
+          29
+        ]
+      }
+    },
+    {
+      "id": 41,
+      "anio": "4to",
+      "nombre": "La enseñanza de la matemática como práctica situada II",
+      "regimen": "Cuatrimestral",
+      "formato": "Ateneo",
+      "prerrequisitos": {
+        "requiresCursada": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          22,
+          23,
+          28
+          ],
+        "requiresAcreditar": [
+          10,
+          14,
+          29,
+          30
+        ]
+      }
+    },
+  
+    {
+      "id": 44,
+      "anio": "-",
+      "nombre": "Unidad Curricular Optativa",
+      "regimen": "Anual",
+      "formato": "Taller",
+      "prerrequisitos": {
+        "requiresCursada": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "requiresAcreditar": []
+      }
+    }
+  ]
+}
